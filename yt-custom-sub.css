@@ -1,0 +1,140 @@
+/* ==UserStyle==
+@name           YouTube Custom Subtitle Styler
+@namespace      github.com/your-username
+@version        1.1.0
+@description    Customize YouTube subtitle Google Font, size, alignment, line spacing, padding, colors, borders, shadows, blur, and window corner radius.
+@author         Your Name
+@license        MIT
+@preprocessor   stylus
+
+@var checkbox useCustomFont     "Use Custom Google Font"            1
+@var text     fontName          "Google Font Name (no quotes)"      "Asap Condensed"
+@var select   fontWeight        "Font Weight"                       ["200", "300", "400*", "500", "600", "700", "800", "900"]
+@var range    fontSize          "Font Size (0 = YouTube Default)"   [0, 0, 72, 1, "px"]
+@var color    fontColor         "Font Color"                        #ffffff
+@var range    fontBlur          "Font Blur"                         [0, 0, 10, 0.5, "px"]
+
+@var select   textAlign         "Text Alignment"                    ["center:Center", "left:Left", "right:Right"]
+@var range    lineDistance      "Distance Between Lines"            [4, 0, 40, 1, "px"]
+
+@var range    padTop            "Padding Top"                       [8, 0, 60, 1, "px"]
+@var range    padRight          "Padding Right"                     [15, 0, 60, 1, "px"]
+@var range    padBottom         "Padding Bottom"                    [12, 0, 60, 1, "px"]
+@var range    padLeft           "Padding Left"                      [15, 0, 60, 1, "px"]
+
+@var checkbox shadowEnabled     "Enable Text Shadow"                1
+@var color    shadowColor       "Shadow Color"                      rgba(0, 0, 0, 0.85)
+@var range    shadowX           "Shadow Offset X"                   [1, -10, 10, 1, "px"]
+@var range    shadowY           "Shadow Offset Y"                   [1, -10, 10, 1, "px"]
+@var range    shadowBlur        "Shadow Blur"                       [2, 0, 20, 0.5, "px"]
+
+@var select   boxTarget         "Apply Box Style To"                ["segment:Each Subtitle Line", "window:Subtitle Window"]
+@var color    bgColor           "Background Color"                  rgba(0, 0, 0, 0.75)
+@var range    bgBlur            "Background Backdrop Blur"          [0, 0, 20, 1, "px"]
+
+@var select   windowBorderType  "Window Border Type"                ["rectangle:Rectangle", "rounded:Rounded Rectangle"]
+@var range    cornerRadius      "Corner Radius (if Rounded)"        [8, 0, 32, 1, "px"]
+@var range    borderWidth       "Border Width"                      [0, 0, 10, 1, "px"]
+@var color    borderColor       "Border Color"                      rgba(255, 255, 255, 1)
+@var range    borderBlur        "Border Blur"                       [0, 0, 20, 0.5, "px"]
+==/UserStyle== */
+
+@-moz-document domain("youtube.com") {
+    $fontClean = join(' ', fontName);
+    $fontQuery = replace(' ', '+', $fontClean);
+    $googleFontUrl = "https://fonts.googleapis.com/css?family=" + $fontQuery + ":200,300,400,500,600,700,800,900&display=swap";
+
+    if (useCustomFont) {
+        @import url($googleFontUrl);
+    }
+
+    $radius = windowBorderType == rounded ? cornerRadius : 0px;
+
+    $shadows = ();
+    if (fontBlur > 0) {
+        push($shadows, 0 0 fontBlur fontColor);
+    }
+    if (shadowEnabled) {
+        push($shadows, shadowX shadowY shadowBlur shadowColor);
+    }
+
+    box-styles() {
+        background-color: bgColor !important;
+        border-radius: $radius !important;
+
+        if (bgBlur > 0) {
+            backdrop-filter: blur(bgBlur) !important;
+            -webkit-backdrop-filter: blur(bgBlur) !important;
+        } else {
+            backdrop-filter: none !important;
+        }
+
+        if (borderWidth > 0) {
+            if (borderBlur > 0) {
+                border: none !important;
+                box-shadow: 0 0 borderBlur borderWidth borderColor !important;
+            } else {
+                border: borderWidth solid borderColor !important;
+                box-shadow: none !important;
+            }
+        } else {
+            border: none !important;
+            box-shadow: none !important;
+        }
+    }
+
+    .caption-window {
+        text-align: textAlign !important;
+
+        if (boxTarget == window) {
+            box-styles();
+        } else {
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+    }
+
+    .captions-text,
+    .caption-visual-line {
+        text-align: textAlign !important;
+    }
+
+    .caption-visual-line + .caption-visual-line {
+        margin-top: lineDistance !important;
+    }
+
+    .ytp-caption-segment {
+        if (useCustomFont) {
+            font-family: $fontClean, "YouTube Noto", Roboto, "Arial Unicode MS", Arial, Helvetica, Verdana, "PT Sans Caption", sans-serif !important;
+            font-weight: fontWeight !important;
+        }
+
+        if (fontSize > 0) {
+            font-size: fontSize !important;
+        }
+
+        text-align: textAlign !important;
+        padding: padTop padRight padBottom padLeft !important;
+
+        if (fontBlur > 0) {
+            color: transparent !important;
+        } else {
+            color: fontColor !important;
+        }
+
+        if (length($shadows) > 0) {
+            text-shadow: unquote(join(", ", $shadows)) !important;
+        } else {
+            text-shadow: none !important;
+        }
+
+        if (boxTarget == segment) {
+            box-styles();
+        } else {
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+    }
+}
