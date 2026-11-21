@@ -23,7 +23,6 @@ A customizable UserCSS for **Stylus** that gives you full control over YouTube s
 
    [![Install directly with Stylus](https://img.shields.io/badge/Install%20directly%20with-Stylus-00adad.svg)](https://raw.githubusercontent.com/he2a/yt-custom-sub/main/yt-custom-sub.user.css)
 
-   *(Or open the direct link: [yt-custom-sub.user.css](https://raw.githubusercontent.com/he2a/yt-custom-sub/main/yt-custom-sub.user.css))*
 3. Click **Install style** in the Stylus tab that opens.
 
 ## Usage
@@ -32,8 +31,3 @@ A customizable UserCSS for **Stylus** that gives you full control over YouTube s
 2. Click the **Stylus** icon in your browser toolbar.
 3. Click the **gear icon** next to **YouTube Custom Subtitles** to open the settings panel.
 4. Adjust any setting to preview changes live on the video.
-
-## Troubleshooting
-
-- **Google Fonts aren't loading on YouTube:** Open Stylus → **Options** → **Advanced** → enable **Patch CSP to allow style assets**, then refresh YouTube.
-- **Overlapping text gets hidden when using negative line distance:** Lower the **Background Color** opacity or keep **Apply Box Style To** set to *Subtitle Window*.
