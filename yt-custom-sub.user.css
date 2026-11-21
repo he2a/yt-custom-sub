@@ -3,39 +3,41 @@
 @namespace      github.com/he2a/yt-custom-sub
 @homepageURL    https://github.com/he2a/yt-custom-sub
 @updateURL      https://raw.githubusercontent.com/he2a/yt-custom-sub/main/yt-custom-sub.user.css
-@version        1.7.0
-@description    Customize YouTube subtitle Google Font, size, alignment, position, line spacing, padding, colors, borders, backdrop blur, and window corner radius.
+@version        1.9.0
+@description    Customize YouTube subtitle Google Font, sizes (default, fullscreen, Shorts), alignment, position, line spacing, padding, colors, borders, backdrop blur, and window corner radius.
 @author         he2a
 @license        MIT
 @preprocessor   stylus
 
-@var checkbox enableSubtitle    "Subtitle Settings"                     1
-@var text     fontName          "Google Font Name (blank = Default)"    "Rubik"
-@var select   fontWeight        "Font Weight"                           ["200", "300", "400*", "500", "600", "700", "800", "900"]
-@var range    fontSize          "Font Size (0 = Default)"               [42, 0, 72, 1, "px"]
-@var color    fontColor         "Font Color"                            #ffffff
-@var range    fontBlur          "Font Blur"                             [0, 0, 10, 0.5, "px"]
-@var select   textAlign         "Text Alignment"                        ["center:Center", "left:Left", "right:Right"]
-@var range    lineDistance      "Line Distance"                         [-12, -40, 40, 1, "px"]
-@var range    padTop            "Padding Top"                           [12, 0, 60, 1, "px"]
-@var range    padRight          "Padding Right"                         [15, 0, 60, 1, "px"]
-@var range    padBottom         "Padding Bottom"                        [12, 0, 60, 1, "px"]
-@var range    padLeft           "Padding Left"                          [15, 0, 60, 1, "px"]
+@var checkbox enableSubtitle    "Subtitle Settings"                         1
+@var text     fontName          "Google Font Name (blank = Default)"        "Rubik"
+@var select   fontWeight        "Font Weight"                               ["200", "300", "400*", "500", "600", "700", "800", "900"]
+@var range    fontSize          "Font Size - Default (0 = YT Default)"      [28, 0, 72, 1, "px"]
+@var range    fsFontSize        "Font Size - Fullscreen (0 = Default)"      [42, 0, 72, 1, "px"]
+@var range    shortsFontSize    "Font Size - Shorts (0 = Default)"          [24, 0, 72, 1, "px"]
+@var color    fontColor         "Font Color"                                #ffffff
+@var range    fontBlur          "Font Blur"                                 [0, 0, 10, 0.5, "px"]
+@var select   textAlign         "Text Alignment"                            ["center:Center", "left:Left", "right:Right"]
+@var range    lineDistance      "Line Distance"                             [-12, -40, 40, 1, "px"]
+@var range    padTop            "Padding Top"                               [12, 0, 60, 1, "px"]
+@var range    padRight          "Padding Right"                             [15, 0, 60, 1, "px"]
+@var range    padBottom         "Padding Bottom"                            [12, 0, 60, 1, "px"]
+@var range    padLeft           "Padding Left"                              [15, 0, 60, 1, "px"]
 
-@var checkbox enableBackdrop    "Backdrop Settings"                     1
-@var select   boxTarget         "Apply Backdrop To"                     ["window:Subtitle Window", "segment:Each Subtitle Line"]
-@var color    bgColor           "Background Color"                      rgba(0, 0, 0, 0.35)
-@var range    bgBlur            "Backdrop Blur"                         [4, 0, 20, 1, "px"]
-@var select   windowBorderType  "Corner Style"                          ["rounded:Rounded Rectangle", "rectangle:Rectangle"]
-@var range    cornerRadius      "Corner Radius"                         [8, 0, 32, 1, "px"]
-@var range    borderWidth       "Border Width"                          [0, 0, 10, 1, "px"]
-@var color    borderColor       "Border Color"                          rgba(255, 255, 255, 1)
+@var checkbox enableBackdrop    "Backdrop Settings"                         1
+@var select   boxTarget         "Apply Backdrop To"                         ["window:Subtitle Window", "segment:Each Subtitle Line"]
+@var color    bgColor           "Background Color"                          rgba(0, 0, 0, 0.35)
+@var range    bgBlur            "Backdrop Blur"                             [4, 0, 20, 1, "px"]
+@var select   windowBorderType  "Corner Style"                              ["rounded:Rounded Rectangle", "rectangle:Rectangle"]
+@var range    cornerRadius      "Corner Radius"                             [8, 0, 32, 1, "px"]
+@var range    borderWidth       "Border Width"                              [0, 0, 10, 1, "px"]
+@var color    borderColor       "Border Color"                              rgba(255, 255, 255, 1)
 
-@var checkbox enablePosition    "Subtitle Position Settings"            0
-@var select   vPos              "Vertical Edge"                         ["bottom:Bottom", "top:Top"]
-@var range    vOffset           "Vertical Offset"                       [8, 0, 50, 1, "%"]
-@var select   hPos              "Horizontal Alignment"                  ["center:Center", "left:Left", "right:Right"]
-@var range    hOffset           "Horizontal Offset"                     [0, -50, 50, 1, "%"]
+@var checkbox enablePosition    "Subtitle Position Settings"                0
+@var select   vPos              "Vertical Edge"                             ["bottom:Bottom", "top:Top"]
+@var range    vOffset           "Vertical Offset"                           [8, 0, 50, 1, "%"]
+@var select   hPos              "Horizontal Alignment"                      ["center:Center", "left:Left", "right:Right"]
+@var range    hOffset           "Horizontal Offset"                         [0, -50, 50, 1, "%"]
 ==/UserStyle== */
 
 @-moz-document domain("youtube.com") {
@@ -166,6 +168,19 @@
             } else {
                 clear-backdrop();
             }
+        }
+    }
+
+    if (enableSubtitle && fsFontSize > 0) {
+        .html5-video-player.ytp-fullscreen:not(#shorts-player) .ytp-caption-segment {
+            font-size: fsFontSize !important;
+        }
+    }
+
+    if (enableSubtitle && shortsFontSize > 0) {
+        #shorts-player .ytp-caption-segment,
+        ytd-shorts .ytp-caption-segment {
+            font-size: shortsFontSize !important;
         }
     }
 }
