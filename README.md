@@ -1,5 +1,7 @@
 # YouTube Custom Subtitles
 
+<p align="center"><img width=100% src="https://raw.githubusercontent.com/he2a/yt-custom-sub/refs/heads/main/preview.png" alt="subtitle screenshot"></p>
+
 A customizable UserCSS for **Stylus** that gives you full control over YouTube subtitle typography, spacing, backgrounds, borders, shadows, and blur effects—all adjustable live from Stylus's built-in settings menu.
 
 ## Features
