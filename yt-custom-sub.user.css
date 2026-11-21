@@ -3,42 +3,53 @@
 @namespace      github.com/he2a/yt-custom-sub
 @homepageURL    https://github.com/he2a/yt-custom-sub
 @updateURL      https://raw.githubusercontent.com/he2a/yt-custom-sub/main/yt-custom-sub.user.css
-@version        1.1.0
-@description    Customize YouTube subtitle Google Font, size, alignment, line spacing, padding, colors, borders, shadows, blur, and window corner radius.
+@version        1.2.0
+@description    Customize YouTube subtitle Google Font, size, alignment, position, line spacing, padding, colors, borders, shadows, blur, and window corner radius.
 @author         he2a
 @license        MIT
 @preprocessor   stylus
 
-@var checkbox useCustomFont     "Use Custom Google Font"            1
-@var text     fontName          "Google Font Name (no quotes)"      "Rubik"
-@var select   fontWeight        "Font Weight"                       ["200", "300", "400*", "500", "600", "700", "800", "900"]
-@var range    fontSize          "Font Size (0 = YouTube Default)"   [42, 0, 72, 1, "px"]
-@var color    fontColor         "Font Color"                        #ffffff
-@var range    fontBlur          "Font Blur"                         [0, 0, 10, 0.5, "px"]
+/* === Subtitle === */
+@var checkbox useCustomFont     "[Subtitle] Use Custom Google Font"     1
+@var text     fontName          "[Subtitle] Google Font Name"           "Rubik"
+@var select   fontWeight        "[Subtitle] Font Weight"                ["200", "300", "400*", "500", "600", "700", "800", "900"]
+@var range    fontSize          "[Subtitle] Font Size (0 = Default)"    [42, 0, 72, 1, "px"]
+@var color    fontColor         "[Subtitle] Font Color"                 #ffffff
+@var range    fontBlur          "[Subtitle] Font Blur"                  [0, 0, 10, 0.5, "px"]
+@var select   textAlign         "[Subtitle] Text Alignment"             ["center:Center", "left:Left", "right:Right"]
+@var range    lineDistance      "[Subtitle] Line Distance"              [-12, -40, 40, 1, "px"]
 
-@var select   textAlign         "Text Alignment"                    ["center:Center", "left:Left", "right:Right"]
-@var range    lineDistance      "Distance Between Lines"            [-12, -40, 40, 1, "px"]
+/* === Position === */
+@var checkbox customPosition    "[Position] Enable Custom Position"     1
+@var select   vPos              "[Position] Vertical Edge"              ["bottom:Bottom", "top:Top"]
+@var range    vOffset           "[Position] Vertical Offset"            [8, 0, 50, 1, "%"]
+@var select   hPos              "[Position] Horizontal Alignment"       ["center:Center", "left:Left", "right:Right"]
+@var range    hOffset           "[Position] Horizontal Offset"          [0, -50, 50, 1, "%"]
 
-@var range    padTop            "Padding Top"                       [12, 0, 60, 1, "px"]
-@var range    padRight          "Padding Right"                     [15, 0, 60, 1, "px"]
-@var range    padBottom         "Padding Bottom"                    [12, 0, 60, 1, "px"]
-@var range    padLeft           "Padding Left"                      [15, 0, 60, 1, "px"]
+/* === Padding === */
+@var range    padTop            "[Padding] Top"                         [12, 0, 60, 1, "px"]
+@var range    padRight          "[Padding] Right"                       [15, 0, 60, 1, "px"]
+@var range    padBottom         "[Padding] Bottom"                      [12, 0, 60, 1, "px"]
+@var range    padLeft           "[Padding] Left"                        [15, 0, 60, 1, "px"]
 
-@var checkbox shadowEnabled     "Enable Text Shadow"                0
-@var color    shadowColor       "Shadow Color"                      rgba(0, 0, 0, 0.85)
-@var range    shadowX           "Shadow Offset X"                   [1, -10, 10, 1, "px"]
-@var range    shadowY           "Shadow Offset Y"                   [1, -10, 10, 1, "px"]
-@var range    shadowBlur        "Shadow Blur"                       [2, 0, 20, 0.5, "px"]
+/* === Shadow === */
+@var checkbox shadowEnabled     "[Shadow] Enable Text Shadow"           0
+@var color    shadowColor       "[Shadow] Color"                        rgba(0, 0, 0, 0.85)
+@var range    shadowX           "[Shadow] Offset X"                     [1, -10, 10, 1, "px"]
+@var range    shadowY           "[Shadow] Offset Y"                     [1, -10, 10, 1, "px"]
+@var range    shadowBlur        "[Shadow] Blur"                         [2, 0, 20, 0.5, "px"]
 
-@var select   boxTarget         "Apply Box Style To"                ["window:Subtitle Window", "segment:Each Subtitle Line"]
-@var color    bgColor           "Background Color"                  rgba(0, 0, 0, 0.35)
-@var range    bgBlur            "Background Backdrop Blur"          [4, 0, 20, 1, "px"]
+/* === Window === */
+@var select   boxTarget         "[Window] Apply Box Style To"           ["window:Subtitle Window", "segment:Each Subtitle Line"]
+@var color    bgColor           "[Window] Background Color"             rgba(0, 0, 0, 0.35)
+@var range    bgBlur            "[Window] Backdrop Blur"                [4, 0, 20, 1, "px"]
 
-@var select   windowBorderType  "Window Border Type"                ["rounded:Rounded Rectangle", "rectangle:Rectangle"]
-@var range    cornerRadius      "Corner Radius (if Rounded)"        [8, 0, 32, 1, "px"]
-@var range    borderWidth       "Border Width"                      [0, 0, 10, 1, "px"]
-@var color    borderColor       "Border Color"                      rgba(255, 255, 255, 1)
-@var range    borderBlur        "Border Blur"                       [0, 0, 20, 0.5, "px"]
+/* === Border === */
+@var select   windowBorderType  "[Border] Corner Style"                 ["rounded:Rounded Rectangle", "rectangle:Rectangle"]
+@var range    cornerRadius      "[Border] Corner Radius"                [8, 0, 32, 1, "px"]
+@var range    borderWidth       "[Border] Width"                        [0, 0, 10, 1, "px"]
+@var color    borderColor       "[Border] Color"                        rgba(255, 255, 255, 1)
+@var range    borderBlur        "[Border] Blur"                         [0, 0, 20, 0.5, "px"]
 ==/UserStyle== */
 
 @-moz-document domain("youtube.com") {
@@ -87,6 +98,34 @@
 
     .caption-window {
         text-align: textAlign !important;
+
+        if (customPosition) {
+            margin: 0 !important;
+            width: auto !important;
+            max-width: 90% !important;
+
+            if (vPos == top) {
+                top: vOffset !important;
+                bottom: auto !important;
+            } else {
+                bottom: vOffset !important;
+                top: auto !important;
+            }
+
+            if (hPos == left) {
+                left: hOffset !important;
+                right: auto !important;
+                transform: none !important;
+            } else if (hPos == right) {
+                right: hOffset !important;
+                left: auto !important;
+                transform: none !important;
+            } else {
+                left: (50% + hOffset) !important;
+                right: auto !important;
+                transform: translateX(-50%) !important;
+            }
+        }
 
         if (boxTarget == window) {
             box-styles();
