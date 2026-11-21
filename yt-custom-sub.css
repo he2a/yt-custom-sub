@@ -1,38 +1,40 @@
 /* ==UserStyle==
-@name           YouTube Custom Subtitle Styler
-@namespace      github.com/your-username
+@name           YouTube Custom Subtitles
+@namespace      github.com/he2a/yt-custom-sub
+@homepageURL    https://github.com/he2a/yt-custom-sub
+@updateURL      https://raw.githubusercontent.com/he2a/yt-custom-sub/main/yt-custom-sub.css
 @version        1.1.0
 @description    Customize YouTube subtitle Google Font, size, alignment, line spacing, padding, colors, borders, shadows, blur, and window corner radius.
-@author         Your Name
+@author         he2a
 @license        MIT
 @preprocessor   stylus
 
 @var checkbox useCustomFont     "Use Custom Google Font"            1
-@var text     fontName          "Google Font Name (no quotes)"      "Asap Condensed"
+@var text     fontName          "Google Font Name (no quotes)"      "Rubik"
 @var select   fontWeight        "Font Weight"                       ["200", "300", "400*", "500", "600", "700", "800", "900"]
-@var range    fontSize          "Font Size (0 = YouTube Default)"   [0, 0, 72, 1, "px"]
+@var range    fontSize          "Font Size (0 = YouTube Default)"   [42, 0, 72, 1, "px"]
 @var color    fontColor         "Font Color"                        #ffffff
 @var range    fontBlur          "Font Blur"                         [0, 0, 10, 0.5, "px"]
 
 @var select   textAlign         "Text Alignment"                    ["center:Center", "left:Left", "right:Right"]
-@var range    lineDistance      "Distance Between Lines"            [4, 0, 40, 1, "px"]
+@var range    lineDistance      "Distance Between Lines"            [-12, -40, 40, 1, "px"]
 
-@var range    padTop            "Padding Top"                       [8, 0, 60, 1, "px"]
+@var range    padTop            "Padding Top"                       [12, 0, 60, 1, "px"]
 @var range    padRight          "Padding Right"                     [15, 0, 60, 1, "px"]
 @var range    padBottom         "Padding Bottom"                    [12, 0, 60, 1, "px"]
 @var range    padLeft           "Padding Left"                      [15, 0, 60, 1, "px"]
 
-@var checkbox shadowEnabled     "Enable Text Shadow"                1
+@var checkbox shadowEnabled     "Enable Text Shadow"                0
 @var color    shadowColor       "Shadow Color"                      rgba(0, 0, 0, 0.85)
 @var range    shadowX           "Shadow Offset X"                   [1, -10, 10, 1, "px"]
 @var range    shadowY           "Shadow Offset Y"                   [1, -10, 10, 1, "px"]
 @var range    shadowBlur        "Shadow Blur"                       [2, 0, 20, 0.5, "px"]
 
-@var select   boxTarget         "Apply Box Style To"                ["segment:Each Subtitle Line", "window:Subtitle Window"]
-@var color    bgColor           "Background Color"                  rgba(0, 0, 0, 0.75)
-@var range    bgBlur            "Background Backdrop Blur"          [0, 0, 20, 1, "px"]
+@var select   boxTarget         "Apply Box Style To"                ["window:Subtitle Window", "segment:Each Subtitle Line"]
+@var color    bgColor           "Background Color"                  rgba(0, 0, 0, 0.35)
+@var range    bgBlur            "Background Backdrop Blur"          [4, 0, 20, 1, "px"]
 
-@var select   windowBorderType  "Window Border Type"                ["rectangle:Rectangle", "rounded:Rounded Rectangle"]
+@var select   windowBorderType  "Window Border Type"                ["rounded:Rounded Rectangle", "rectangle:Rectangle"]
 @var range    cornerRadius      "Corner Radius (if Rounded)"        [8, 0, 32, 1, "px"]
 @var range    borderWidth       "Border Width"                      [0, 0, 10, 1, "px"]
 @var color    borderColor       "Border Color"                      rgba(255, 255, 255, 1)
@@ -101,6 +103,7 @@
     }
 
     .caption-visual-line + .caption-visual-line {
+        display: block !important;
         margin-top: lineDistance !important;
     }
 
