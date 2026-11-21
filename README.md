@@ -18,10 +18,13 @@ A customizable UserCSS for **Stylus** that gives you full control over YouTube s
 
 ## Installation
 
-### Method 1: Manual Install (UserCSS Mode)
-1. Open the [yt-custom-sub.css](https://github.com/he2a/yt-custom-sub/blob/main/yt-custom-sub.css) file and copy its raw contents ([raw link](https://raw.githubusercontent.com/he2a/yt-custom-sub/main/yt-custom-sub.css)).
-2. Open the **Stylus** manager, check **as UserCSS** under **Write new style**, and click **Write new style**.
-3. Paste the code into the editor and click **Save**.
+1. Install the **Stylus** extension in Chrome or Firefox.
+2. Click the direct install link below to open Stylus's installer automatically:
+
+   [![Install directly with Stylus](https://img.shields.io/badge/Install%20directly%20with-Stylus-00adad.svg)](https://raw.githubusercontent.com/he2a/yt-custom-sub/main/yt-custom-sub.user.css)
+
+   *(Or open the direct link: [yt-custom-sub.user.css](https://raw.githubusercontent.com/he2a/yt-custom-sub/main/yt-custom-sub.user.css))*
+3. Click **Install style** in the Stylus tab that opens.
 
 ## Usage
 
